@@ -1,3 +1,4 @@
+![Bumper Logo](https://drive.google.com/uc?export=view&id=1VZX43cz97tbSaos8ILbTNrZ9QDwmT4AO)
 # Bumper
 
 **Bumper** is a lightweight, developer-friendly Java library that simplifies working with relational and NoSQL databases. It offers a clean, fluent API for connecting to databases, building queries, executing them, and managing results — with support for popular databases like MySQL, PostgreSQL, SQLite, MongoDB, Redis, and more.
@@ -65,9 +66,6 @@ Ensure your IDE or command-line setup includes it in the classpath.
 We welcome contributions!
 Feel free to fork the repository, open issues, or submit pull requests with improvements.
 
-## License
-This project is licensed under the MIT License.
-
 ## Author
-Amos Nyirenda
-Email: amos.nyirenda@email.com
+- Name: Amos Nyirenda
+- Email: nyirendaamos1@gmail.com
