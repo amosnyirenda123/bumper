@@ -1,4 +1,4 @@
 package com.amosnyirenda.bumper.exceptions;
 
-public class ConnectionException {
+public class ConnectionException extends DBException {
 }

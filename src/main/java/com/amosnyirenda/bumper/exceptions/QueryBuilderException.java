@@ -1,4 +1,4 @@
 package com.amosnyirenda.bumper.exceptions;
 
-public class QueryBuilderException {
+public class QueryBuilderException extends DBException {
 }
