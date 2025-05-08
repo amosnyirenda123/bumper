@@ -1,20 +1,36 @@
 package com.amosnyirenda.bumper.db.mysql;
 
+import com.amosnyirenda.bumper.core.DBConnector;
+import com.amosnyirenda.bumper.core.DBQueryBuilder;
 import com.amosnyirenda.bumper.core.DBQueryHandler;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 
 public class MySQLQueryHandler implements DBQueryHandler {
     private final String query;
+    private DBConnector connector;
 
     private MySQLQueryHandler(QueryBuilder builder) {
         this.query = builder.query.toString();
     }
 
+    public MySQLQueryHandler withConnector(DBConnector connector) {
+        this.connector = connector;
+        return this;
+    }
+
     @Override
     public void execute() {
-        // JDBC logic here if needed
-        System.out.println("Executing: " + query);
+//        try (Connection conn = connector.connect();
+//             Statement stmt = conn.createStatement()) {
+//            stmt.execute(this.query);
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
+        System.out.println("Executing query: " + query);
     }
 
     @Override
@@ -22,10 +38,10 @@ public class MySQLQueryHandler implements DBQueryHandler {
         return query;
     }
 
-    public static class QueryBuilder {
+    public static class QueryBuilder implements DBQueryBuilder {
         private final StringBuilder query = new StringBuilder();
 
-        public QueryBuilder append(String sqlPart) {
+        private QueryBuilder append(String sqlPart) {
             query.append(" ").append(sqlPart);
             return this;
         }
@@ -101,7 +117,7 @@ public class MySQLQueryHandler implements DBQueryHandler {
             return append("LIMIT " + limit);
         }
 
-        public MySQLQueryHandler build() {
+        public DBQueryHandler build() {
             return new MySQLQueryHandler(this);
         }
     }

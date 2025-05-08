@@ -3,10 +3,6 @@ package com.amosnyirenda.bumper.db.mongodb;
 
 import com.amosnyirenda.bumper.core.DBQueryHandler;
 
-public class MongoDBQueryHandler implements DBQueryHandler {
+public class MongoDBQueryHandler {
 
-    @Override
-    public void execute() {
-
-    }
 }
