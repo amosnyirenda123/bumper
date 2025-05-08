@@ -1,4 +1,4 @@
 package com.amosnyirenda.bumper.core;
 
-public class DBConnectionBuilder {
+public class DBQueryResponse {
 }

@@ -1,4 +1,6 @@
 package com.amosnyirenda.bumper.exceptions;
 
-public class DBException extends Exception {
+import java.sql.SQLException;
+
+public class DBException extends SQLException {
 }

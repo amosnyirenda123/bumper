@@ -1,4 +1,4 @@
-package com.amosnyirenda.bumper.db.postgres;
+package com.amosnyirenda.bumper.db.redis;
 
 import com.amosnyirenda.bumper.core.DBConnectionConfig;
 import com.amosnyirenda.bumper.core.DBConnector;
@@ -7,7 +7,7 @@ import lombok.AllArgsConstructor;
 import java.sql.Connection;
 
 @AllArgsConstructor
-public class PostgresConnector implements DBConnector {
+public class RedisConnector implements DBConnector {
     private final DBConnectionConfig config;
     @Override
     public Connection connect() {
