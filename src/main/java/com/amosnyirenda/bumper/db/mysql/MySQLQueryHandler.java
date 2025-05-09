@@ -4,9 +4,11 @@ import com.amosnyirenda.bumper.core.DBConnector;
 import com.amosnyirenda.bumper.core.DBQueryBuilder;
 import com.amosnyirenda.bumper.core.DBQueryHandler;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 public class MySQLQueryHandler implements DBQueryHandler {
@@ -24,13 +26,112 @@ public class MySQLQueryHandler implements DBQueryHandler {
 
     @Override
     public void execute() {
-//        try (Connection conn = connector.connect();
-//             Statement stmt = conn.createStatement()) {
-//            stmt.execute(this.query);
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-        System.out.println("Executing query: " + query);
+        try (Connection conn = connector.connect();
+             Statement stmt = conn.createStatement()
+
+        ) {
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                String name = rs.getString("role");
+                System.out.println(name);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to execute query"+ e);
+        }
+    }
+
+    @Override
+    public List<String> getColumn(String column) {
+        List<String> list = new ArrayList<>();
+        try (Connection conn = connector.connect();
+             Statement stmt = conn.createStatement()
+
+        ) {
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                 list.add(rs.getString(column));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to get column"+ e);
+        }
+
+        return list;
+    }
+
+    @Override
+    public List<Map<String, Object>> getRows() {
+        List<Map<String, Object>> rows = new ArrayList<>();
+        try (Connection conn = connector.connect();
+             Statement stmt = conn.createStatement()
+
+        ) {
+            ResultSet rs = stmt.executeQuery(query);
+            ResultSetMetaData metaData = rs.getMetaData();
+            int columnCount = metaData.getColumnCount();
+
+            while (rs.next()) {
+                Map<String, Object> row = new HashMap<>();
+                for (int i = 1; i <= columnCount; i++) {
+                    String columnName = metaData.getColumnName(i);
+                    Object columnValue = rs.getObject(i);
+                    row.put(columnName, columnValue);
+                }
+                rows.add(row);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to execute query"+ e);
+        }
+        return rows;
+    }
+
+    @Override
+    public List<Map<String, Object>> getRows(int rowLimit) {
+        List<Map<String, Object>> rows = new ArrayList<>();
+
+        try (Connection conn = connector.connect();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
+
+            ResultSetMetaData metaData = rs.getMetaData();
+            int columnCount = metaData.getColumnCount();
+
+            int currentRow = 0;
+            while (rs.next() && currentRow < rowLimit) {
+                Map<String, Object> row = new HashMap<>();
+                for (int i = 1; i <= columnCount; i++) {
+                    String columnName = metaData.getColumnLabel(i); // `getColumnLabel` is better than `getColumnName`
+                    Object columnValue = rs.getObject(i);
+                    row.put(columnName, columnValue);
+                }
+                rows.add(row);
+                currentRow++;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to execute query: " + e.getMessage(), e);
+        }
+
+        return rows;
+    }
+
+
+    @Override
+    public List<String> getColumnNames() {
+        List<String> columnNames = new ArrayList<>();
+        try (Connection conn = connector.connect();
+             Statement stmt = conn.createStatement()
+
+        ) {
+            ResultSet rs = stmt.executeQuery(query);
+            ResultSetMetaData metaData = rs.getMetaData();
+            int columnCount = metaData.getColumnCount();
+            for (int i = 1; i <= metaData.getColumnCount(); i++) {
+                columnNames.add(metaData.getColumnLabel(i));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to get column names."+ e);
+        }
+        return columnNames;
     }
 
     @Override
