@@ -1,18 +1,10 @@
 package com.amosnyirenda.bumper.core;
 
-import com.amosnyirenda.bumper.db.mongodb.MongoDBConnector;
-import com.amosnyirenda.bumper.db.mongodb.MongoDBQueryHandler;
 import com.amosnyirenda.bumper.db.mysql.MySQLConnector;
-import com.amosnyirenda.bumper.db.mysql.MySQLQueryHandler;
 import com.amosnyirenda.bumper.db.mysql.MySQLQueryHandlerFactory;
-import com.amosnyirenda.bumper.db.oracle.OracleConnector;
-import com.amosnyirenda.bumper.db.oracle.OracleQueryHandler;
-import com.amosnyirenda.bumper.db.postgres.PostgresConnector;
-import com.amosnyirenda.bumper.db.postgres.PostgresQueryHandler;
-import com.amosnyirenda.bumper.db.redis.RedisConnector;
-import com.amosnyirenda.bumper.db.redis.RedisQueryHandler;
-import com.amosnyirenda.bumper.db.sqlserver.SQLServerConnector;
-import com.amosnyirenda.bumper.db.sqlserver.SQLServerQueryHandler;
+import com.amosnyirenda.bumper.events.EventManager;
+import com.amosnyirenda.bumper.events.EventType;
+import com.amosnyirenda.bumper.utils.LoggingListener;
 import lombok.Getter;
 
 import java.sql.Connection;
@@ -28,6 +20,8 @@ public class DBConnectionManager {
     private final String password;
     private final DBType dbType;
     private  DBConnector connector;
+    @Getter
+    private final EventManager eventManager;
 
     private final Map<DBType, Function<DBConnectionConfig, DBConnector>> connectorSuppliers = new HashMap<>();
     private final Map<DBType, DBQueryHandlerFactory> handlerFactories = new HashMap<>();
@@ -42,6 +36,12 @@ public class DBConnectionManager {
 
         connectorSuppliers.put(connectionBuilder.dbType, MySQLConnector::new);
         handlerFactories.put(connectionBuilder.dbType, new MySQLQueryHandlerFactory());
+        eventManager = new EventManager(EventType.values());
+
+        LoggingListener logger = new LoggingListener();
+        for (EventType type : EventType.values()) {
+            eventManager.subscribe(type, logger);
+        }
     }
 
     public void registerConnector(DBType type, Function<DBConnectionConfig, DBConnector> supplier) {
@@ -62,6 +62,7 @@ public class DBConnectionManager {
         connector = supplier.apply(new DBConnectionConfig(url, username, password));
         return connector;
     }
+
 
     public DBQueryBuilder getQueryBuilder() {
         DBQueryHandlerFactory factory = handlerFactories.get(dbType);

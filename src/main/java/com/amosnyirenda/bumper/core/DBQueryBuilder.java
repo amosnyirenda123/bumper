@@ -4,6 +4,11 @@ package com.amosnyirenda.bumper.core;
 import com.amosnyirenda.bumper.db.mysql.MySQLQueryHandler;
 
 public interface DBQueryBuilder {
+    DBQueryBuilder createTable(String table);
+    DBQueryBuilder addColumn(String column, String dataType, String constraint);
+    DBQueryBuilder insertInto(String table);
+    DBQueryBuilder columns(String... columns);
+    DBQueryBuilder values(String... values);
     DBQueryBuilder select(String columns);
     DBQueryBuilder from(String table);
     DBQueryBuilder where(String condition);

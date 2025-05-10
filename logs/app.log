@@ -1,0 +1,4 @@
+
+2025-05-10 12:53:39 [main] INFO  c.a.bumper.utils.LoggingListener - Event triggered: ROWS_FETCHED
+2025-05-10 12:53:39 [main] INFO  c.a.bumper.utils.LoggingListener - Payload: Query:  SELECT * FROM users
+2025-05-10 12:53:39 [main] INFO  c.a.bumper.utils.LoggingListener - Payload: Took: 31 ms, Rows fetched: 2 rows

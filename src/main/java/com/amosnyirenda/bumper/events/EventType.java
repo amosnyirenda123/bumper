@@ -1,0 +1,17 @@
+package com.amosnyirenda.bumper.events;
+
+public enum EventType {
+    INSERT,
+    UPDATE,
+    DELETE,
+    QUERY,
+    CREATE,
+    QUERY_ERROR,
+    CONNECTION_ESTABLISHED,
+    CONNECTION_CLOSED,
+    CONNECTION_ERROR,
+    DISCONNECT,
+    COLUMN_NAMES_RETRIEVED,
+    ROWS_FETCHED,
+    COLUMN_VALUE_RETRIEVED,
+}

@@ -3,6 +3,8 @@ package com.amosnyirenda.bumper.db.mysql;
 import com.amosnyirenda.bumper.core.DBConnector;
 import com.amosnyirenda.bumper.core.DBQueryBuilder;
 import com.amosnyirenda.bumper.core.DBQueryHandler;
+import com.amosnyirenda.bumper.events.EventManager;
+import com.amosnyirenda.bumper.events.EventType;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -14,6 +16,7 @@ import java.util.Map;
 public class MySQLQueryHandler implements DBQueryHandler {
     private final String query;
     private DBConnector connector;
+    private EventManager eventManager;
 
     private MySQLQueryHandler(QueryBuilder builder) {
         this.query = builder.query.toString();
@@ -25,20 +28,11 @@ public class MySQLQueryHandler implements DBQueryHandler {
     }
 
     @Override
-    public void execute() {
-        try (Connection conn = connector.connect();
-             Statement stmt = conn.createStatement()
-
-        ) {
-            ResultSet rs = stmt.executeQuery(query);
-            while (rs.next()) {
-                String name = rs.getString("role");
-                System.out.println(name);
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException("Failed to execute query"+ e);
-        }
+    public MySQLQueryHandler withEventManager(EventManager eventManager) {
+        this.eventManager = eventManager;
+        return this;
     }
+
 
     @Override
     public List<String> getColumn(String column) {
@@ -50,6 +44,10 @@ public class MySQLQueryHandler implements DBQueryHandler {
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
                  list.add(rs.getString(column));
+            }
+
+            if(eventManager != null) {
+                eventManager.notify(EventType.COLUMN_VALUE_RETRIEVED);
             }
         } catch (SQLException e) {
             throw new RuntimeException("Failed to get column"+ e);
@@ -65,7 +63,10 @@ public class MySQLQueryHandler implements DBQueryHandler {
              Statement stmt = conn.createStatement()
 
         ) {
+            long start = System.nanoTime();
             ResultSet rs = stmt.executeQuery(query);
+            long end = System.nanoTime();
+            long executionTimeMillis = (end - start) / 1_000_000;
             ResultSetMetaData metaData = rs.getMetaData();
             int columnCount = metaData.getColumnCount();
 
@@ -78,10 +79,23 @@ public class MySQLQueryHandler implements DBQueryHandler {
                 }
                 rows.add(row);
             }
+            dispatch(EventType.ROWS_FETCHED, "Query: "+ query, "Took: " + executionTimeMillis + " ms," + " Rows fetched: " + rows.size() + " rows");
         } catch (SQLException e) {
-            throw new RuntimeException("Failed to execute query"+ e);
+            dispatch(EventType.QUERY_ERROR, query, "Failed to execute query " + e);
         }
         return rows;
+    }
+
+    private void dispatch(EventType type) {
+        if(eventManager != null) {
+            eventManager.notify(type);
+        }
+    }
+
+    private void dispatch(EventType type, Object ...payload) {
+        if(eventManager != null) {
+            eventManager.notify(type, payload);
+        }
     }
 
     @Override
@@ -99,12 +113,16 @@ public class MySQLQueryHandler implements DBQueryHandler {
             while (rs.next() && currentRow < rowLimit) {
                 Map<String, Object> row = new HashMap<>();
                 for (int i = 1; i <= columnCount; i++) {
-                    String columnName = metaData.getColumnLabel(i); // `getColumnLabel` is better than `getColumnName`
+                    String columnName = metaData.getColumnLabel(i);
                     Object columnValue = rs.getObject(i);
                     row.put(columnName, columnValue);
                 }
                 rows.add(row);
                 currentRow++;
+            }
+
+            if(eventManager != null) {
+                eventManager.notify(EventType.ROWS_FETCHED);
             }
 
         } catch (SQLException e) {
@@ -113,7 +131,6 @@ public class MySQLQueryHandler implements DBQueryHandler {
 
         return rows;
     }
-
 
     @Override
     public List<String> getColumnNames() {
@@ -127,6 +144,10 @@ public class MySQLQueryHandler implements DBQueryHandler {
             int columnCount = metaData.getColumnCount();
             for (int i = 1; i <= metaData.getColumnCount(); i++) {
                 columnNames.add(metaData.getColumnLabel(i));
+            }
+
+            if (eventManager != null) {
+                eventManager.notify(EventType.COLUMN_NAMES_RETRIEVED);
             }
         } catch (SQLException e) {
             throw new RuntimeException("Failed to get column names."+ e);
@@ -145,6 +166,31 @@ public class MySQLQueryHandler implements DBQueryHandler {
         private QueryBuilder append(String sqlPart) {
             query.append(" ").append(sqlPart);
             return this;
+        }
+
+        @Override
+        public DBQueryBuilder createTable(String table) {
+            return null;
+        }
+
+        @Override
+        public DBQueryBuilder addColumn(String column, String dataType, String constraint) {
+            return null;
+        }
+
+        @Override
+        public DBQueryBuilder insertInto(String table) {
+            return null;
+        }
+
+        @Override
+        public DBQueryBuilder columns(String... columns) {
+            return null;
+        }
+
+        @Override
+        public DBQueryBuilder values(String... values) {
+            return null;
         }
 
         public QueryBuilder select(String columns) {
