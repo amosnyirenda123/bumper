@@ -5,3 +5,75 @@
 2025-05-11 13:35:41 [main] INFO  c.a.bumper.utils.LoggingListener - Event triggered: ROWS_FETCHED
 2025-05-11 13:35:41 [main] INFO  c.a.bumper.utils.LoggingListener - Payload: Query:  SELECT * FROM users
 2025-05-11 13:35:41 [main] INFO  c.a.bumper.utils.LoggingListener - Payload: Took: 99 ms, Rows fetched: 2 rows
+2025-05-11 14:27:37 [main] INFO  c.a.bumper.utils.LoggingListener - Event triggered: ROWS_FETCHED
+2025-05-11 14:27:37 [main] INFO  c.a.bumper.utils.LoggingListener - Payload: Query:  SELECT * FROM users
+2025-05-11 14:27:37 [main] INFO  c.a.bumper.utils.LoggingListener - Payload: Took: 34 ms, Rows fetched: 2 rows
+2025-05-11 14:36:59 [main] INFO  c.a.bumper.utils.LoggingListener - Event triggered: ROWS_FETCHED
+2025-05-11 14:36:59 [main] INFO  c.a.bumper.utils.LoggingListener - Payload: Query:  SELECT * FROM users
+2025-05-11 14:36:59 [main] INFO  c.a.bumper.utils.LoggingListener - Payload: Took: 32 ms, Rows fetched: 2 rows
+2025-05-11 15:39:27 [main] INFO  c.a.bumper.utils.LoggingListener - Event triggered: QUERY_ERROR
+2025-05-11 15:39:27 [main] INFO  c.a.bumper.utils.LoggingListener - Payload:  SELECT * FROM books
+2025-05-11 15:39:27 [main] INFO  c.a.bumper.utils.LoggingListener - Payload: Failed to execute query org.sqlite.SQLiteException: [SQLITE_ERROR] SQL error or missing database (no such table: books)
+2025-05-11 15:41:34 [main] INFO  c.a.bumper.utils.LoggingListener - Event triggered: QUERY_ERROR
+2025-05-11 15:41:34 [main] INFO  c.a.bumper.utils.LoggingListener - Payload:  SELECT * FROM books
+2025-05-11 15:41:34 [main] INFO  c.a.bumper.utils.LoggingListener - Payload: Failed to execute query org.sqlite.SQLiteException: [SQLITE_ERROR] SQL error or missing database (no such table: books)
+2025-05-11 15:44:25 [main] INFO  c.a.bumper.utils.LoggingListener - Event triggered: QUERY_ERROR
+2025-05-11 15:44:25 [main] INFO  c.a.bumper.utils.LoggingListener - Payload:  SELECT * FROM books
+2025-05-11 15:44:25 [main] INFO  c.a.bumper.utils.LoggingListener - Payload: Failed to execute query org.sqlite.SQLiteException: [SQLITE_ERROR] SQL error or missing database (no such table: books)
+2025-05-11 15:45:32 [main] INFO  c.a.bumper.utils.LoggingListener - Event triggered: QUERY_ERROR
+2025-05-11 15:45:32 [main] INFO  c.a.bumper.utils.LoggingListener - Payload:  SELECT * FROM books
+2025-05-11 15:45:32 [main] INFO  c.a.bumper.utils.LoggingListener - Payload: Failed to execute query org.sqlite.SQLiteException: [SQLITE_ERROR] SQL error or missing database (no such table: books)
+2025-05-11 15:47:18 [main] INFO  c.a.bumper.utils.LoggingListener - Event triggered: QUERY_ERROR
+2025-05-11 15:47:18 [main] INFO  c.a.bumper.utils.LoggingListener - Payload:  SELECT * FROM books
+2025-05-11 15:47:18 [main] INFO  c.a.bumper.utils.LoggingListener - Payload: Failed to execute query org.sqlite.SQLiteException: [SQLITE_ERROR] SQL error or missing database (no such table: books)
+2025-05-11 15:48:03 [main] INFO  c.a.bumper.utils.LoggingListener - Event triggered: QUERY_ERROR
+2025-05-11 15:48:03 [main] INFO  c.a.bumper.utils.LoggingListener - Payload:  SELECT * FROM books
+2025-05-11 15:48:03 [main] INFO  c.a.bumper.utils.LoggingListener - Payload: Failed to execute query org.sqlite.SQLiteException: [SQLITE_ERROR] SQL error or missing database (no such table: books)
+2025-05-11 15:49:11 [main] INFO  c.a.bumper.utils.LoggingListener - Event triggered: QUERY_ERROR
+2025-05-11 15:49:11 [main] INFO  c.a.bumper.utils.LoggingListener - Payload:  SELECT * FROM books
+2025-05-11 15:49:11 [main] INFO  c.a.bumper.utils.LoggingListener - Payload: Failed to execute query org.sqlite.SQLiteException: [SQLITE_ERROR] SQL error or missing database (no such table: books)
+2025-05-11 15:49:51 [main] INFO  c.a.bumper.utils.LoggingListener - Event triggered: QUERY_ERROR
+2025-05-11 15:49:51 [main] INFO  c.a.bumper.utils.LoggingListener - Payload:  SELECT * FROM book
+2025-05-11 15:49:51 [main] INFO  c.a.bumper.utils.LoggingListener - Payload: Failed to execute query org.sqlite.SQLiteException: [SQLITE_ERROR] SQL error or missing database (no such table: book)
+2025-05-11 15:51:22 [main] INFO  c.a.bumper.utils.LoggingListener - Event triggered: QUERY_ERROR
+2025-05-11 15:51:22 [main] INFO  c.a.bumper.utils.LoggingListener - Payload:  SELECT * FROM book
+2025-05-11 15:51:22 [main] INFO  c.a.bumper.utils.LoggingListener - Payload: Failed to execute query org.sqlite.SQLiteException: [SQLITE_ERROR] SQL error or missing database (no such table: book)
+2025-05-11 15:51:46 [main] INFO  c.a.bumper.utils.LoggingListener - Event triggered: QUERY_ERROR
+2025-05-11 15:51:46 [main] INFO  c.a.bumper.utils.LoggingListener - Payload:  SELECT * FROM books
+2025-05-11 15:51:46 [main] INFO  c.a.bumper.utils.LoggingListener - Payload: Failed to execute query org.sqlite.SQLiteException: [SQLITE_ERROR] SQL error or missing database (no such table: books)
+2025-05-11 15:52:48 [main] INFO  c.a.bumper.utils.LoggingListener - Event triggered: QUERY_ERROR
+2025-05-11 15:52:48 [main] INFO  c.a.bumper.utils.LoggingListener - Payload:  SELECT * FROM books
+2025-05-11 15:52:48 [main] INFO  c.a.bumper.utils.LoggingListener - Payload: Failed to execute query org.sqlite.SQLiteException: [SQLITE_ERROR] SQL error or missing database (no such table: books)
+2025-05-11 15:55:46 [main] INFO  c.a.bumper.utils.LoggingListener - Event triggered: QUERY_ERROR
+2025-05-11 15:55:46 [main] INFO  c.a.bumper.utils.LoggingListener - Payload:  SELECT * FROM books
+2025-05-11 15:55:46 [main] INFO  c.a.bumper.utils.LoggingListener - Payload: Failed to execute query org.sqlite.SQLiteException: [SQLITE_ERROR] SQL error or missing database (no such table: books)
+2025-05-11 15:57:39 [main] INFO  c.a.bumper.utils.LoggingListener - Event triggered: QUERY_ERROR
+2025-05-11 15:57:39 [main] INFO  c.a.bumper.utils.LoggingListener - Payload:  SELECT name FROM books
+2025-05-11 15:57:39 [main] INFO  c.a.bumper.utils.LoggingListener - Payload: Failed to execute query org.sqlite.SQLiteException: [SQLITE_ERROR] SQL error or missing database (no such table: books)
+2025-05-11 15:58:05 [main] INFO  c.a.bumper.utils.LoggingListener - Event triggered: QUERY_ERROR
+2025-05-11 15:58:05 [main] INFO  c.a.bumper.utils.LoggingListener - Payload:  SELECT title FROM books
+2025-05-11 15:58:05 [main] INFO  c.a.bumper.utils.LoggingListener - Payload: Failed to execute query org.sqlite.SQLiteException: [SQLITE_ERROR] SQL error or missing database (no such table: books)
+2025-05-11 15:59:02 [main] INFO  c.a.bumper.utils.LoggingListener - Event triggered: QUERY_ERROR
+2025-05-11 15:59:02 [main] INFO  c.a.bumper.utils.LoggingListener - Payload:  SELECT * FROM books
+2025-05-11 15:59:02 [main] INFO  c.a.bumper.utils.LoggingListener - Payload: Failed to execute query org.sqlite.SQLiteException: [SQLITE_ERROR] SQL error or missing database (no such table: books)
+2025-05-11 16:00:04 [main] INFO  c.a.bumper.utils.LoggingListener - Event triggered: QUERY_ERROR
+2025-05-11 16:00:04 [main] INFO  c.a.bumper.utils.LoggingListener - Payload:  SELECT * FROM books
+2025-05-11 16:00:04 [main] INFO  c.a.bumper.utils.LoggingListener - Payload: Failed to execute query org.sqlite.SQLiteException: [SQLITE_ERROR] SQL error or missing database (no such table: books)
+2025-05-11 16:01:46 [main] INFO  c.a.bumper.utils.LoggingListener - Event triggered: ROWS_FETCHED
+2025-05-11 16:01:46 [main] INFO  c.a.bumper.utils.LoggingListener - Payload: Query:  SELECT * FROM books
+2025-05-11 16:01:46 [main] INFO  c.a.bumper.utils.LoggingListener - Payload: Took: 3 ms, Rows fetched: 3 rows
+2025-05-11 16:04:31 [main] INFO  c.a.bumper.utils.LoggingListener - Event triggered: ROWS_FETCHED
+2025-05-11 16:04:31 [main] INFO  c.a.bumper.utils.LoggingListener - Payload: Query:  SELECT * FROM books
+2025-05-11 16:04:31 [main] INFO  c.a.bumper.utils.LoggingListener - Payload: Took: 3 ms, Rows fetched: 3 rows
+2025-05-11 16:04:59 [main] INFO  c.a.bumper.utils.LoggingListener - Event triggered: ROWS_FETCHED
+2025-05-11 16:05:32 [main] INFO  c.a.bumper.utils.LoggingListener - Event triggered: ROWS_FETCHED
+2025-05-11 16:09:08 [main] INFO  c.a.bumper.utils.LoggingListener - Event triggered: ROWS_FETCHED
+2025-05-11 16:09:37 [main] INFO  c.a.bumper.utils.LoggingListener - Event triggered: ROWS_FETCHED
+2025-05-11 16:36:56 [main] INFO  c.a.bumper.utils.LoggingListener - Event triggered: ROWS_FETCHED
+2025-05-11 16:43:27 [main] INFO  c.a.bumper.utils.LoggingListener - Event triggered: ROWS_FETCHED
+2025-05-11 16:45:43 [main] INFO  c.a.bumper.utils.LoggingListener - Event triggered: ROWS_FETCHED
+2025-05-11 16:45:43 [main] INFO  c.a.bumper.utils.LoggingListener - Payload: Query:  SELECT * FROM users
+2025-05-11 16:45:43 [main] INFO  c.a.bumper.utils.LoggingListener - Payload: Took: 33 ms, Rows fetched: 2 rows
+2025-05-11 16:46:34 [main] INFO  c.a.bumper.utils.LoggingListener - Event triggered: ROWS_FETCHED
+2025-05-11 16:46:34 [main] INFO  c.a.bumper.utils.LoggingListener - Payload: Query:  SELECT * FROM users
+2025-05-11 16:46:34 [main] INFO  c.a.bumper.utils.LoggingListener - Payload: Took: 35 ms, Rows fetched: 2 rows

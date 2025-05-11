@@ -1,9 +1,8 @@
 package com.amosnyirenda.bumper.core;
-
-import com.amosnyirenda.bumper.db.mysql.MySQLQueryHandlerFactory;
 import com.amosnyirenda.bumper.drivers.JdbcConnector;
 import com.amosnyirenda.bumper.events.EventManager;
 import com.amosnyirenda.bumper.events.EventType;
+import com.amosnyirenda.bumper.factories.JdbcQueryHandlerFactory;
 import com.amosnyirenda.bumper.utils.LoggingListener;
 import lombok.Getter;
 import java.util.HashMap;
@@ -35,7 +34,7 @@ public class DBConnectionManager {
         this.className = connectionBuilder.className;
 
         initConnector(connectionBuilder.dbType);
-        handlerFactories.put(connectionBuilder.dbType, new MySQLQueryHandlerFactory());
+        initHandlerFactories(connectionBuilder.dbType);
         eventManager = new EventManager(EventType.values());
 
         LoggingListener logger = new LoggingListener();
@@ -48,6 +47,13 @@ public class DBConnectionManager {
         switch (dbType) {
             case MYSQL, POSTGRESQL, ORACLE, SQLITE, SQLSERVER ->
                     connectorSuppliers.put(dbType, JdbcConnector::new);
+        }
+    }
+
+    private void initHandlerFactories(DBType dbType) {
+        switch (dbType) {
+            case MYSQL, POSTGRESQL, ORACLE, SQLITE, SQLSERVER ->
+                    handlerFactories.put(dbType, new JdbcQueryHandlerFactory());
         }
     }
 

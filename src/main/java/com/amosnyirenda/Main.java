@@ -1,9 +1,9 @@
 package com.amosnyirenda;
 
 import com.amosnyirenda.bumper.core.*;
-import com.amosnyirenda.bumper.db.mysql.MySQLQueryHandler;
-import com.amosnyirenda.bumper.db.mysql.MySQLQueryHandlerFactory;
 import com.amosnyirenda.bumper.events.EventManager;
+
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
@@ -22,22 +22,8 @@ public class Main {
 
         DBQueryBuilder builder = connectionManager.getQueryBuilder();
         DBQueryHandler handler = builder
-                .select("*")
-                .from("users")
+                .query("SELECT * FROM users")
                 .build();
-
-//        List<Map<String, Object>> rows = handler
-//                .withConnector(connector)
-//                .withEventManager(eventManager)
-//                .getRows();
-//
-//        for (Map<String, Object> row : rows) {
-//            System.out.println(row);
-//        }
-//        List<String> columnNames = handler.withConnector(connector).getColumnNames();
-//        for (String columnName : columnNames) {
-//            System.out.println(columnName);
-//        }
 
         List<Map<String, Object>> rows1 = handler.withConnector(connector).withEventManager(eventManager).getRows();
         for (Map<String, Object> row : rows1) {
