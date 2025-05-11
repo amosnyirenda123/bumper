@@ -9,4 +9,5 @@ public class DBConnectionConfig {
     private final String url;
     private final String username;
     private final String password;
+    private final String className;
 }

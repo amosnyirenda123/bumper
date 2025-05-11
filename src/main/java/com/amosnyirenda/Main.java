@@ -1,11 +1,9 @@
 package com.amosnyirenda;
 
 import com.amosnyirenda.bumper.core.*;
-import com.amosnyirenda.bumper.db.mysql.MySQLConnector;
 import com.amosnyirenda.bumper.db.mysql.MySQLQueryHandler;
 import com.amosnyirenda.bumper.db.mysql.MySQLQueryHandlerFactory;
 import com.amosnyirenda.bumper.events.EventManager;
-
 import java.util.List;
 import java.util.Map;
 

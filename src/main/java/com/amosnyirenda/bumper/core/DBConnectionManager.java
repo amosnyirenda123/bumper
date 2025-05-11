@@ -1,13 +1,11 @@
 package com.amosnyirenda.bumper.core;
 
-import com.amosnyirenda.bumper.db.mysql.MySQLConnector;
 import com.amosnyirenda.bumper.db.mysql.MySQLQueryHandlerFactory;
+import com.amosnyirenda.bumper.drivers.JdbcConnector;
 import com.amosnyirenda.bumper.events.EventManager;
 import com.amosnyirenda.bumper.events.EventType;
 import com.amosnyirenda.bumper.utils.LoggingListener;
 import lombok.Getter;
-
-import java.sql.Connection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -19,6 +17,7 @@ public class DBConnectionManager {
     private final String username;
     private final String password;
     private final DBType dbType;
+    private final String className;
     private  DBConnector connector;
     @Getter
     private final EventManager eventManager;
@@ -33,14 +32,22 @@ public class DBConnectionManager {
         this.username = connectionBuilder.username;
         this.password = connectionBuilder.password;
         this.dbType = connectionBuilder.dbType;
+        this.className = connectionBuilder.className;
 
-        connectorSuppliers.put(connectionBuilder.dbType, MySQLConnector::new);
+        initConnector(connectionBuilder.dbType);
         handlerFactories.put(connectionBuilder.dbType, new MySQLQueryHandlerFactory());
         eventManager = new EventManager(EventType.values());
 
         LoggingListener logger = new LoggingListener();
         for (EventType type : EventType.values()) {
             eventManager.subscribe(type, logger);
+        }
+    }
+
+    private void initConnector(DBType dbType) {
+        switch (dbType) {
+            case MYSQL, POSTGRESQL, ORACLE, SQLITE, SQLSERVER ->
+                    connectorSuppliers.put(dbType, JdbcConnector::new);
         }
     }
 
@@ -59,7 +66,7 @@ public class DBConnectionManager {
         if (supplier == null) {
             throw new UnsupportedOperationException("No connector registered for DB type: " + dbType);
         }
-        connector = supplier.apply(new DBConnectionConfig(url, username, password));
+        connector = supplier.apply(new DBConnectionConfig(url, username, password, className));
         return connector;
     }
 
@@ -76,6 +83,7 @@ public class DBConnectionManager {
         private String password;
         private String username;
         private  DBType dbType;
+        private String className;
 
         public ConnectionBuilder withUrl(String url){
             this.url = url;
@@ -102,7 +110,30 @@ public class DBConnectionManager {
             return this;
         }
 
+        private void setClassName(DBType dbType) {
+            switch(dbType){
+                case MYSQL:
+                    this.className = "com.mysql.cj.jdbc.Driver";
+                    break;
+                case ORACLE:
+                    this.className = "oracle.jdbc.driver.OracleDriver";
+                    break;
+                case POSTGRESQL:
+                    this.className = "org.postgresql.Driver";
+                    break;
+                case SQLSERVER:
+                    this.className = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+                    break;
+                case SQLITE:
+                    this.className = "org.sqlite.JDBC";
+                    break;
+                default:
+                    throw new UnsupportedOperationException("Unsupported DB type: " + dbType);
+            }
+        }
+
         public DBConnectionManager buildConnection(){
+            setClassName(this.dbType);
             return new DBConnectionManager(this);
         }
 

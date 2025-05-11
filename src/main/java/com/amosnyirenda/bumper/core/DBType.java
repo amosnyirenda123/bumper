@@ -5,5 +5,6 @@ public enum DBType {
     POSTGRESQL,
     SQLITE,
     ORACLE,
+    SQLSERVER,
     MONGO_DB
 }
