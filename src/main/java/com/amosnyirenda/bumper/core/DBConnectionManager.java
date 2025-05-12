@@ -1,14 +1,24 @@
 package com.amosnyirenda.bumper.core;
 import com.amosnyirenda.bumper.drivers.JdbcConnector;
+import com.amosnyirenda.bumper.drivers.MongoDBConnector;
 import com.amosnyirenda.bumper.events.EventManager;
 import com.amosnyirenda.bumper.events.EventType;
 import com.amosnyirenda.bumper.factories.JdbcQueryHandlerFactory;
+import com.amosnyirenda.bumper.factories.MongoDBQueryHandlerFactory;
 import com.amosnyirenda.bumper.utils.LoggingListener;
 import lombok.Getter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 import java.util.function.Function;
+
+/**
+ * This class handles database connections using JDBC.
+ * It supports MySQL, PostgreSQL, SQLite, and other relational databases.
+ * It selects the correct connector based on the DBType argument
+ * @author Amos Nyirenda
+ * @version 1.0
+ */
 
 @Getter
 public class DBConnectionManager {
@@ -17,11 +27,12 @@ public class DBConnectionManager {
     private final String password;
     private final DBType dbType;
     private final String className;
+
     private  DBConnector connector;
     @Getter
     private final EventManager eventManager;
 
-    private final Map<DBType, Function<DBConnectionConfig, DBConnector>> connectorSuppliers = new HashMap<>();
+    private final Map<DBType, Function<DBConnectionRequest, DBConnector>> connectorSuppliers = new HashMap<>();
     private final Map<DBType, DBQueryHandlerFactory> handlerFactories = new HashMap<>();
 
 
@@ -32,6 +43,7 @@ public class DBConnectionManager {
         this.password = connectionBuilder.password;
         this.dbType = connectionBuilder.dbType;
         this.className = connectionBuilder.className;
+
 
         initConnector(connectionBuilder.dbType);
         initHandlerFactories(connectionBuilder.dbType);
@@ -46,7 +58,10 @@ public class DBConnectionManager {
     private void initConnector(DBType dbType) {
         switch (dbType) {
             case MYSQL, POSTGRESQL, ORACLE, SQLITE, SQLSERVER ->
-                    connectorSuppliers.put(dbType, JdbcConnector::new);
+                    connectorSuppliers.put(dbType,request -> new JdbcConnector( request.getConfig(), request.getEventManager()));
+            case MONGO_DB ->
+                    connectorSuppliers.put(dbType,request -> new MongoDBConnector( request.getConfig(), request.getEventManager()));
+            default -> throw new UnsupportedOperationException("No Database connector registered for: " + dbType);
         }
     }
 
@@ -54,25 +69,23 @@ public class DBConnectionManager {
         switch (dbType) {
             case MYSQL, POSTGRESQL, ORACLE, SQLITE, SQLSERVER ->
                     handlerFactories.put(dbType, new JdbcQueryHandlerFactory());
+            case MONGO_DB ->
+                    handlerFactories.put(dbType, new MongoDBQueryHandlerFactory());
+            default -> throw new UnsupportedOperationException("No Database factory registered for: " + dbType);
         }
     }
 
-    public void registerConnector(DBType type, Function<DBConnectionConfig, DBConnector> supplier) {
-        connectorSuppliers.put(type, supplier);
-    }
-
-
-    public void registerFactory(DBType type, DBQueryHandlerFactory factory) {
-        handlerFactories.put(type, factory);
-    }
 
     public DBConnector getConnector() {
         if (connector != null) return connector;
-        Function<DBConnectionConfig, DBConnector> supplier = connectorSuppliers.get(dbType);
+        Function<DBConnectionRequest, DBConnector> supplier = connectorSuppliers.get(dbType);
         if (supplier == null) {
             throw new UnsupportedOperationException("No connector registered for DB type: " + dbType);
         }
-        connector = supplier.apply(new DBConnectionConfig(url, username, password, className));
+        connector = supplier.apply(new DBConnectionRequest(
+                new DBConnectionConfig(url, username, password, className),
+                this.getEventManager()
+        ));
         return connector;
     }
 
@@ -91,6 +104,7 @@ public class DBConnectionManager {
         private  DBType dbType;
         private String className;
 
+
         public ConnectionBuilder withUrl(String url){
             this.url = url;
             return this;
@@ -107,6 +121,7 @@ public class DBConnectionManager {
             this.dbType = dbType;
             return this;
         }
+
 
         public ConnectionBuilder fromProperties(Properties props) {
             this.url = props.getProperty("url");
@@ -132,6 +147,9 @@ public class DBConnectionManager {
                     break;
                 case SQLITE:
                     this.className = "org.sqlite.JDBC";
+                    break;
+                case MONGO_DB:
+                    this.className = "org.mongodb.morph.MorphDriver";
                     break;
                 default:
                     throw new UnsupportedOperationException("Unsupported DB type: " + dbType);

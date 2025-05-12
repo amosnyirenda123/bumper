@@ -34,9 +34,9 @@ public class JdbcQueryHandler implements DBQueryHandler {
     }
 
     @Override
-    public List<String> getColumn(String column) {
+    public List<String> getField(String field) {
         List<String> list = new ArrayList<>();
-        try (Connection conn = connector.connect();
+        try (Connection conn = (Connection) connector.connect();
              Statement stmt = conn.createStatement()
 
         ) {
@@ -45,7 +45,7 @@ public class JdbcQueryHandler implements DBQueryHandler {
             long end = System.nanoTime();
             long executionTimeMillis = (end - start) / 1_000_000;
             while (rs.next()) {
-                list.add(rs.getString(column));
+                list.add(rs.getString(field));
             }
 
             dispatch(EventType.COLUMN_VALUE_RETRIEVED, "Query: "+ query, "Took: " + executionTimeMillis + " ms," + " values " + list.size() + "values");
@@ -57,9 +57,9 @@ public class JdbcQueryHandler implements DBQueryHandler {
     }
 
     @Override
-    public List<Map<String, Object>> getRows() {
+    public List<Map<String, Object>> getEntries() {
         List<Map<String, Object>> rows = new ArrayList<>();
-        try (Connection conn = connector.connect();
+        try (Connection conn = (Connection) connector.connect();
              Statement stmt = conn.createStatement();
         ) {
             long start = System.nanoTime();
@@ -98,10 +98,10 @@ public class JdbcQueryHandler implements DBQueryHandler {
     }
 
     @Override
-    public List<Map<String, Object>> getRows(int rowLimit) {
+    public List<Map<String, Object>> getEntries(int limit) {
         List<Map<String, Object>> rows = new ArrayList<>();
 
-        try (Connection conn = connector.connect();
+        try (Connection conn = (Connection) connector.connect();
              Statement stmt = conn.createStatement();
              ) {
 
@@ -114,7 +114,7 @@ public class JdbcQueryHandler implements DBQueryHandler {
             int columnCount = metaData.getColumnCount();
 
             int currentRow = 0;
-            while (rs.next() && currentRow < rowLimit) {
+            while (rs.next() && currentRow < limit) {
                 Map<String, Object> row = new HashMap<>();
                 for (int i = 1; i <= columnCount; i++) {
                     String columnName = metaData.getColumnLabel(i);
@@ -135,9 +135,9 @@ public class JdbcQueryHandler implements DBQueryHandler {
     }
 
     @Override
-    public List<String> getColumnNames() {
+    public List<String> getFieldNames() {
         List<String> columnNames = new ArrayList<>();
-        try (Connection conn = connector.connect();
+        try (Connection conn = (Connection) connector.connect();
              Statement stmt = conn.createStatement()
 
         ) {

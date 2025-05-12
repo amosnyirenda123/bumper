@@ -3,7 +3,6 @@ package com.amosnyirenda;
 import com.amosnyirenda.bumper.core.*;
 import com.amosnyirenda.bumper.events.EventManager;
 
-import java.io.File;
 import java.util.List;
 import java.util.Map;
 
@@ -11,10 +10,8 @@ public class Main {
     public static void main(String[] args) {
 
         DBConnectionManager connectionManager = new DBConnectionManager.ConnectionBuilder()
-                .withUrl("jdbc:mysql://localhost:3306/laravel")
-                .withPassword("")
-                .withUsername("root")
-                .withDb(DBType.MYSQL)
+                .withUrl("")
+                .withDb(DBType.MONGO_DB)
                 .buildConnection();
 
         DBConnector connector = connectionManager.getConnector();
@@ -22,11 +19,16 @@ public class Main {
 
         DBQueryBuilder builder = connectionManager.getQueryBuilder();
         DBQueryHandler handler = builder
-                .query("SELECT * FROM users")
+                .query("books")
                 .build();
 
-        List<Map<String, Object>> rows1 = handler.withConnector(connector).withEventManager(eventManager).getRows();
-        for (Map<String, Object> row : rows1) {
+//        List<Map<String, Object>> rows1 = handler.withConnector(connector).withEventManager(eventManager).getEntries(1);
+//        for (Map<String, Object> row : rows1) {
+//            System.out.println(row);
+//        }
+
+        List<String> rows1 = handler.withConnector(connector).withEventManager(eventManager).getField("year");
+        for (String row : rows1) {
             System.out.println(row);
         }
     }
