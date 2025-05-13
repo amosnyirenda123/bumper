@@ -10,8 +10,12 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.model.Filters;
+import com.mongodb.client.result.DeleteResult;
+import com.mongodb.client.result.UpdateResult;
 import org.bson.*;
 import com.mongodb.ConnectionString;
+import org.bson.types.ObjectId;
 
 import java.util.*;
 
@@ -107,6 +111,119 @@ public class MongoDBQueryHandler implements DBQueryHandler {
     }
 
     @Override
+    public boolean insert(Object... documents) {
+        try {
+            MongoCollection<Document> collection = getCollection();
+            List<Document> docsToInsert = new ArrayList<>();
+
+            for (Object obj : documents) {
+                if (obj instanceof Document) {
+                    docsToInsert.add((Document) obj);
+                } else if (obj instanceof Map<?, ?> mapObj) {
+                    Map<String, Object> safeMap = new HashMap<>();
+                    for (Map.Entry<?, ?> entry : mapObj.entrySet()) {
+                        if (!(entry.getKey() instanceof String)) {
+                            throw new IllegalArgumentException("Map keys must be strings");
+                        }
+                        safeMap.put((String) entry.getKey(), entry.getValue());
+                    }
+                    docsToInsert.add(new Document(safeMap));
+                } else {
+                    throw new IllegalArgumentException("Unsupported document type: " + obj.getClass().getName());
+                }
+            }
+
+            if (!docsToInsert.isEmpty()) {
+                if (docsToInsert.size() == 1) {
+                    collection.insertOne(docsToInsert.get(0));
+                } else {
+                    collection.insertMany(docsToInsert);
+                }
+
+                dispatch(EventType.INSERT, docsToInsert.size() + " documents inserted");
+                return true;
+            }
+
+        } catch (Exception e) {
+            dispatch(EventType.QUERY_ERROR, "Insert failed: " + e.getMessage());
+        }
+        return false;
+    }
+
+
+    @Override
+    public boolean insert(List<String> columns, List<Object> values) {
+        return false;
+    }
+
+    @Override
+    public boolean insert(List<String> columns, List<Object> values, boolean ifNotExist) {
+        return false;
+    }
+
+    @Override
+    public boolean delete(String id) {
+        try {
+            MongoCollection<Document> collection = getCollection();
+            ObjectId objectId;
+
+            try {
+                objectId = new ObjectId(id);
+            } catch (IllegalArgumentException e) {
+                dispatch(EventType.QUERY_ERROR, "Invalid ID format: " + id);
+                return false;
+            }
+
+            DeleteResult result = collection.deleteOne(Filters.eq("_id", objectId));
+            dispatch(EventType.DELETE, "Delete count: " + result.getDeletedCount());
+            return result.getDeletedCount() > 0;
+
+        } catch (Exception e) {
+            dispatch(EventType.QUERY_ERROR, "Delete failed for ID " + id + ": " + e.getMessage());
+            return false;
+        }
+    }
+
+    @Override
+    public boolean update(String id, Map<String, Object> updates) {
+        try {
+            MongoCollection<Document> collection = getCollection();
+            ObjectId objectId;
+
+            try {
+                objectId = new ObjectId(id);
+            } catch (IllegalArgumentException e) {
+                dispatch(EventType.QUERY_ERROR, "Invalid ID format: " + id);
+                return false;
+            }
+
+            Document updateDoc = new Document();
+            for (Map.Entry<String, Object> entry : updates.entrySet()) {
+                updateDoc.append(entry.getKey(), entry.getValue());
+            }
+
+            UpdateResult result = collection.updateOne(
+                    Filters.eq("_id", objectId),
+                    new Document("$set", updateDoc)
+            );
+
+            dispatch(EventType.UPDATE, "Update count: " + result.getModifiedCount());
+            return result.getModifiedCount() > 0;
+
+        } catch (Exception e) {
+            dispatch(EventType.QUERY_ERROR, "Update failed for ID " + id + ": " + e.getMessage());
+            return false;
+        }
+    }
+
+
+
+    @Override
+    public boolean update(String tableName, String newValue) {
+        return false;
+    }
+
+    @Override
     public List<String> getFieldNames() {
         Set<String> fields = new LinkedHashSet<>();
         try {
@@ -155,6 +272,7 @@ public class MongoDBQueryHandler implements DBQueryHandler {
             return append(source);
         }
 
+
         @Override
         public QueryBuilder target(String source, Object ...params) {
             return append(String.format(source, params));
@@ -167,7 +285,7 @@ public class MongoDBQueryHandler implements DBQueryHandler {
         }
 
         @Override
-        public DBQueryHandler build() {
+        public DBQueryHandler buildHandler() {
             return new MongoDBQueryHandler(this);
         }
     }

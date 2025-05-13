@@ -135,6 +135,36 @@ public class JdbcQueryHandler implements DBQueryHandler {
     }
 
     @Override
+    public boolean insert(Object... documents) {
+        return false;
+    }
+
+    @Override
+    public boolean insert(List<String> columns, List<Object> values) {
+        return false;
+    }
+
+    @Override
+    public boolean insert(List<String> columns, List<Object> values, boolean ifNotExist) {
+        return false;
+    }
+
+    @Override
+    public boolean  delete(String id) {
+        return false;
+    }
+
+    @Override
+    public boolean update(String id, Map<String, Object> updates) {
+        return false;
+    }
+
+    @Override
+    public boolean update(String tableName, String newValue) {
+        return false;
+    }
+
+    @Override
     public List<String> getFieldNames() {
         List<String> columnNames = new ArrayList<>();
         try (Connection conn = (Connection) connector.connect();
@@ -183,12 +213,12 @@ public class JdbcQueryHandler implements DBQueryHandler {
 
         @Override
         public DBQueryBuilder use(String param) {
-//TODO: define method body later
+            //TODO: define method body later
             return this;
         }
 
 
-        public DBQueryHandler build() {
+        public DBQueryHandler buildHandler() {
             return new JdbcQueryHandler(this);
         }
     }
