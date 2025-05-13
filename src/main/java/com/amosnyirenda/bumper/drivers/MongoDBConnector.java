@@ -26,7 +26,7 @@ public class MongoDBConnector implements DBConnector {
             long end = System.nanoTime();
             long elapsed = (end - start) / 1_000_000;
 
-            dispatch(EventType.CONNECTION_ESTABLISHED, config.getUrl(), "Took: " + elapsed + "ms");
+            dispatch(EventType.CONNECTION_ESTABLISHED, config.getClassName(), "Took: " + elapsed + "ms");
 
             return mongoClient;
         } catch (Exception e) {
