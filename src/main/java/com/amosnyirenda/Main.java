@@ -19,17 +19,18 @@ public class Main {
 
         DBQueryBuilder builder = connectionManager.getQueryBuilder();
         DBQueryHandler handler = builder
-                .query("books")
+                .target("books")
+                .use("library")
                 .build();
 
-//        List<Map<String, Object>> rows1 = handler.withConnector(connector).withEventManager(eventManager).getEntries(1);
-//        for (Map<String, Object> row : rows1) {
-//            System.out.println(row);
-//        }
-
-        List<String> rows1 = handler.withConnector(connector).withEventManager(eventManager).getField("year");
-        for (String row : rows1) {
+        List<Map<String, Object>> rows1 = handler.withConnector(connector).withEventManager(eventManager).getEntries();
+        for (Map<String, Object> row : rows1) {
             System.out.println(row);
         }
+
+//        List<String> rows2 = handler.withConnector(connector).withEventManager(eventManager).getField("year");
+//        for (String row : rows2) {
+//            System.out.println(row);
+//        }
     }
 }

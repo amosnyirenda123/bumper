@@ -172,13 +172,19 @@ public class JdbcQueryHandler implements DBQueryHandler {
 
 
         @Override
-        public QueryBuilder query(String condition) {
-            return append(condition);
+        public QueryBuilder target(String source) {
+            return append(source);
         }
 
         @Override
-        public QueryBuilder query(String condition, Object ...params) {
-            return append(String.format(condition, params));
+        public QueryBuilder target(String source, Object ...params) {
+            return append(String.format(source, params));
+        }
+
+        @Override
+        public DBQueryBuilder use(String param) {
+//TODO: define method body later
+            return this;
         }
 
 

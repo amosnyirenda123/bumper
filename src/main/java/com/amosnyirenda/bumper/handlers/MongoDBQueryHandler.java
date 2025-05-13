@@ -17,11 +17,13 @@ import java.util.*;
 
 public class MongoDBQueryHandler implements DBQueryHandler {
     private final String query;
+    private final String database;
     private DBConnector connector;
     private EventManager eventManager;
 
     MongoDBQueryHandler(QueryBuilder queryBuilder){
         this.query = queryBuilder.query.toString();
+        this.database = queryBuilder.database;
     }
 
     @Override
@@ -35,8 +37,7 @@ public class MongoDBQueryHandler implements DBQueryHandler {
             throw new IllegalStateException("MongoClient is not initialized. Call connect() first.");
         }
 
-        String dbName = "library";
-        return ((MongoClient)connector.connect()).getDatabase(dbName).getCollection("books");
+        return ((MongoClient)connector.connect()).getDatabase(this.database).getCollection(this.query);
 
     }
 
@@ -142,20 +143,27 @@ public class MongoDBQueryHandler implements DBQueryHandler {
     }
 
     public static class QueryBuilder implements DBQueryBuilder{
+        private String database;
         private final StringBuilder query = new StringBuilder();
 
         private QueryBuilder append(String sqlPart) {
-            query.append(" ").append(sqlPart);
+            query.append(sqlPart);
             return this;
         }
         @Override
-        public QueryBuilder query(String condition) {
-            return append(condition);
+        public QueryBuilder target(String source) {
+            return append(source);
         }
 
         @Override
-        public QueryBuilder query(String condition, Object ...params) {
-            return append(String.format(condition, params));
+        public QueryBuilder target(String source, Object ...params) {
+            return append(String.format(source, params));
+        }
+
+        @Override
+        public DBQueryBuilder use(String param) {
+            this.database = param;
+            return this;
         }
 
         @Override
