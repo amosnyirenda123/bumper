@@ -12,3 +12,155 @@
 2025-05-14 02:01:43 [main] INFO  c.a.bumper.utils.LoggingListener - Insert operation initiated.
 2025-05-14 02:01:43 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Query: INSERT INTO books (year, author, title) VALUES (?, ?, ?)
 2025-05-14 02:01:43 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 35 ms
+2025-05-14 14:19:51 [main] INFO  c.a.bumper.utils.LoggingListener - Database connection successfully established.
+2025-05-14 14:19:51 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: jdbc:mysql://localhost:3306/laravel
+2025-05-14 14:19:51 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 255ms
+2025-05-14 14:19:51 [main] INFO  c.a.bumper.utils.LoggingListener - Insert operation initiated.
+2025-05-14 14:19:51 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Query: INSERT INTO books (year, author, title) VALUES (?, ?, ?)
+2025-05-14 14:19:51 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 33 ms
+2025-05-14 14:23:43 [main] INFO  c.a.bumper.utils.LoggingListener - Database connection successfully established.
+2025-05-14 14:23:43 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: jdbc:mysql://localhost:3306/laravel
+2025-05-14 14:23:43 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 221ms
+2025-05-14 14:25:10 [main] INFO  c.a.bumper.utils.LoggingListener - Database connection successfully established.
+2025-05-14 14:25:10 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: jdbc:mysql://localhost:3306/laravel
+2025-05-14 14:25:10 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 195ms
+2025-05-14 14:28:23 [main] INFO  c.a.bumper.utils.LoggingListener - Database connection successfully established.
+2025-05-14 14:28:23 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: jdbc:mysql://localhost:3306/laravel
+2025-05-14 14:28:23 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 168ms
+2025-05-14 14:30:36 [main] INFO  c.a.bumper.utils.LoggingListener - Database connection successfully established.
+2025-05-14 14:30:36 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: jdbc:mysql://localhost:3306/laravel
+2025-05-14 14:30:36 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 318ms
+2025-05-14 14:30:36 [main] INFO  c.a.bumper.utils.LoggingListener - Delete operation initiated.
+2025-05-14 14:30:36 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: DELETE FROM id WHERE id = 1
+2025-05-14 14:30:36 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 13 ms
+2025-05-14 14:35:45 [main] INFO  c.a.bumper.utils.LoggingListener - Database connection successfully established.
+2025-05-14 14:35:45 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: jdbc:mysql://localhost:3306/laravel
+2025-05-14 14:35:45 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 190ms
+2025-05-14 14:35:45 [main] ERROR c.a.bumper.utils.LoggingListener - An error occurred during a query.
+2025-05-14 14:35:45 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: 
+2025-05-14 14:35:45 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Failed to execute query java.sql.SQLException: Can not issue empty query.
+2025-05-14 14:39:43 [main] INFO  c.a.bumper.utils.LoggingListener - Database connection successfully established.
+2025-05-14 14:39:43 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: jdbc:mysql://localhost:3306/laravel
+2025-05-14 14:39:43 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 245ms
+2025-05-14 14:39:43 [main] DEBUG c.a.bumper.utils.LoggingListener - Database rows fetched.
+2025-05-14 14:39:43 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Query:  select * from books
+2025-05-14 14:39:43 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 12 ms, Rows fetched: 3 rows
+2025-05-14 14:40:09 [main] INFO  c.a.bumper.utils.LoggingListener - Database connection successfully established.
+2025-05-14 14:40:09 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: jdbc:mysql://localhost:3306/laravel
+2025-05-14 14:40:09 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 202ms
+2025-05-14 14:40:09 [main] DEBUG c.a.bumper.utils.LoggingListener - Database rows fetched.
+2025-05-14 14:40:09 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Query:  select * from books
+2025-05-14 14:40:09 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 7 ms, Rows fetched: 2 rows
+2025-05-14 14:40:27 [main] INFO  c.a.bumper.utils.LoggingListener - Database connection successfully established.
+2025-05-14 14:40:27 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: jdbc:mysql://localhost:3306/laravel
+2025-05-14 14:40:27 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 248ms
+2025-05-14 14:40:27 [main] DEBUG c.a.bumper.utils.LoggingListener - Database rows fetched.
+2025-05-14 14:40:27 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Query:  select * from books
+2025-05-14 14:40:27 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 8 ms, Rows fetched: 1 rows
+2025-05-14 14:45:16 [main] INFO  c.a.bumper.utils.LoggingListener - Database connection successfully established.
+2025-05-14 14:45:16 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: jdbc:mysql://localhost:3306/laravel
+2025-05-14 14:45:16 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 240ms
+2025-05-14 14:45:16 [main] INFO  c.a.bumper.utils.LoggingListener - Event triggered: COLUMN_NAMES_RETRIEVED
+2025-05-14 14:49:00 [main] INFO  c.a.bumper.utils.LoggingListener - Database connection successfully established.
+2025-05-14 14:49:00 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: jdbc:sqlite:C:\Users\pc\Documents\test.db
+2025-05-14 14:49:00 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 92ms
+2025-05-14 14:49:00 [main] ERROR c.a.bumper.utils.LoggingListener - An error occurred during a query.
+2025-05-14 14:49:00 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload:  select * from books
+2025-05-14 14:49:00 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Failed to execute query org.sqlite.SQLiteException: [SQLITE_ERROR] SQL error or missing database (no such table: books)
+2025-05-14 14:49:45 [main] INFO  c.a.bumper.utils.LoggingListener - Database connection successfully established.
+2025-05-14 14:49:45 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: jdbc:sqlite:C:/Users/pc/Documents/test.db
+2025-05-14 14:49:45 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 122ms
+2025-05-14 14:49:45 [main] ERROR c.a.bumper.utils.LoggingListener - An error occurred during a query.
+2025-05-14 14:49:45 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload:  select * from books
+2025-05-14 14:49:45 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Failed to execute query org.sqlite.SQLiteException: [SQLITE_ERROR] SQL error or missing database (no such table: books)
+2025-05-14 14:51:25 [main] INFO  c.a.bumper.utils.LoggingListener - Database connection successfully established.
+2025-05-14 14:51:25 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: jdbc:sqlite:C:/Users/pc/Documents/test.db
+2025-05-14 14:51:25 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 121ms
+2025-05-14 14:51:25 [main] ERROR c.a.bumper.utils.LoggingListener - An error occurred during a query.
+2025-05-14 14:51:25 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload:  select * from books
+2025-05-14 14:51:25 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Failed to execute query org.sqlite.SQLiteException: [SQLITE_ERROR] SQL error or missing database (no such table: books)
+2025-05-14 14:52:22 [main] INFO  c.a.bumper.utils.LoggingListener - Database connection successfully established.
+2025-05-14 14:52:22 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: jdbc:sqlite:C:/Users/pc/Documents/testdb.db
+2025-05-14 14:52:22 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 107ms
+2025-05-14 14:52:22 [main] INFO  c.a.bumper.utils.LoggingListener - Event triggered: COLUMN_NAMES_RETRIEVED
+2025-05-14 14:53:12 [main] INFO  c.a.bumper.utils.LoggingListener - Database connection successfully established.
+2025-05-14 14:53:12 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: jdbc:sqlite:C:/Users/pc/Documents/testdb.db
+2025-05-14 14:53:12 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 133ms
+2025-05-14 14:53:12 [main] DEBUG c.a.bumper.utils.LoggingListener - A column value was retrieved.
+2025-05-14 14:53:12 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Query:  select * from books
+2025-05-14 14:53:12 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 4 ms, values 3values
+2025-05-14 14:53:53 [main] INFO  c.a.bumper.utils.LoggingListener - Database connection successfully established.
+2025-05-14 14:53:53 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: jdbc:sqlite:C:/Users/pc/Documents/testdb.db
+2025-05-14 14:53:53 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 98ms
+2025-05-14 14:53:53 [main] DEBUG c.a.bumper.utils.LoggingListener - Database rows fetched.
+2025-05-14 14:53:53 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Query:  select * from books
+2025-05-14 14:53:53 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 4 ms, Rows fetched: 3 rows
+2025-05-14 14:55:11 [main] INFO  c.a.bumper.utils.LoggingListener - Database connection successfully established.
+2025-05-14 14:55:11 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: jdbc:sqlite:C:/Users/pc/Documents/testdb.db
+2025-05-14 14:55:11 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 97ms
+2025-05-14 14:55:11 [main] ERROR c.a.bumper.utils.LoggingListener - An error occurred during a query.
+2025-05-14 14:55:11 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Delete failed: [SQLITE_ERROR] SQL error or missing database (near "null": syntax error)
+2025-05-14 14:56:57 [main] INFO  c.a.bumper.utils.LoggingListener - Database connection successfully established.
+2025-05-14 14:56:57 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: jdbc:sqlite:C:/Users/pc/Documents/testdb.db
+2025-05-14 14:56:57 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 82ms
+2025-05-14 14:56:57 [main] ERROR c.a.bumper.utils.LoggingListener - An error occurred during a query.
+2025-05-14 14:56:57 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Delete failed: [SQLITE_ERROR] SQL error or missing database (near "null": syntax error)
+2025-05-14 14:58:02 [main] INFO  c.a.bumper.utils.LoggingListener - Database connection successfully established.
+2025-05-14 14:58:02 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: jdbc:sqlite:C:/Users/pc/Documents/testdb.db
+2025-05-14 14:58:02 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 78ms
+2025-05-14 14:58:02 [main] INFO  c.a.bumper.utils.LoggingListener - Delete operation initiated.
+2025-05-14 14:58:02 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: DELETE FROM books WHERE id = 1
+2025-05-14 14:58:02 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 8 ms
+2025-05-14 15:01:35 [main] INFO  c.a.bumper.utils.LoggingListener - Database connection successfully established.
+2025-05-14 15:01:35 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: jdbc:sqlite:C:/Users/pc/Documents/testdb.db
+2025-05-14 15:01:35 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 85ms
+2025-05-14 15:01:35 [main] INFO  c.a.bumper.utils.LoggingListener - Update operation initiated.
+2025-05-14 15:01:35 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: id updated 
+2025-05-14 15:01:35 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 7 ms
+2025-05-14 15:05:23 [main] INFO  c.a.bumper.utils.LoggingListener - Database connection successfully established.
+2025-05-14 15:05:23 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: jdbc:sqlite:C:/Users/pc/Documents/testdb.db
+2025-05-14 15:05:23 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 92ms
+2025-05-14 15:05:23 [main] INFO  c.a.bumper.utils.LoggingListener - Insert operation initiated.
+2025-05-14 15:05:23 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Query: INSERT INTO books (author, title) VALUES (?, ?)
+2025-05-14 15:05:23 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 7 ms
+2025-05-14 15:06:06 [main] INFO  c.a.bumper.utils.LoggingListener - Database connection successfully established.
+2025-05-14 15:06:06 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: jdbc:sqlite:C:/Users/pc/Documents/testdb.db
+2025-05-14 15:06:06 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 135ms
+2025-05-14 15:06:06 [main] ERROR c.a.bumper.utils.LoggingListener - An error occurred during a query.
+2025-05-14 15:06:06 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Insert failed: [SQLITE_ERROR] SQL error or missing database (table books has no column named year)
+2025-05-14 15:14:46 [main] INFO  c.a.bumper.utils.LoggingListener - Database connection successfully established.
+2025-05-14 15:14:46 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: jdbc:postgresql://localhost:5432/postgres
+2025-05-14 15:14:46 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 113ms
+2025-05-14 15:14:46 [main] ERROR c.a.bumper.utils.LoggingListener - An error occurred during a query.
+2025-05-14 15:14:46 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Insert failed: ERROR: duplicate key value violates unique constraint "books_pkey"
+  Detail: Key (id)=(1) already exists.
+2025-05-14 15:15:30 [main] INFO  c.a.bumper.utils.LoggingListener - Database connection successfully established.
+2025-05-14 15:15:30 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: jdbc:postgresql://localhost:5432/postgres
+2025-05-14 15:15:30 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 231ms
+2025-05-14 15:15:31 [main] INFO  c.a.bumper.utils.LoggingListener - Insert operation initiated.
+2025-05-14 15:15:31 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Query: INSERT INTO books (author, id, title) VALUES (?, ?, ?)
+2025-05-14 15:15:31 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 11 ms
+2025-05-14 15:16:44 [main] INFO  c.a.bumper.utils.LoggingListener - Database connection successfully established.
+2025-05-14 15:16:44 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: jdbc:postgresql://localhost:5432/postgres
+2025-05-14 15:16:44 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 120ms
+2025-05-14 15:16:44 [main] INFO  c.a.bumper.utils.LoggingListener - Delete operation initiated.
+2025-05-14 15:16:44 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: DELETE FROM books WHERE id = 1
+2025-05-14 15:16:44 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 3 ms
+2025-05-14 15:18:07 [main] INFO  c.a.bumper.utils.LoggingListener - Database connection successfully established.
+2025-05-14 15:18:07 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: jdbc:postgresql://localhost:5432/postgres
+2025-05-14 15:18:07 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 150ms
+2025-05-14 15:18:07 [main] INFO  c.a.bumper.utils.LoggingListener - Update operation initiated.
+2025-05-14 15:18:07 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: id updated 
+2025-05-14 15:18:07 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 3 ms
+2025-05-14 15:18:42 [main] INFO  c.a.bumper.utils.LoggingListener - Database connection successfully established.
+2025-05-14 15:18:42 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: jdbc:postgresql://localhost:5432/postgres
+2025-05-14 15:18:42 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 110ms
+2025-05-14 15:18:42 [main] INFO  c.a.bumper.utils.LoggingListener - Update operation initiated.
+2025-05-14 15:18:42 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: id updated 
+2025-05-14 15:18:42 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 3 ms
+2025-05-14 15:19:44 [main] INFO  c.a.bumper.utils.LoggingListener - Database connection successfully established.
+2025-05-14 15:19:44 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: jdbc:postgresql://localhost:5432/postgres
+2025-05-14 15:19:44 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 144ms
+2025-05-14 15:19:44 [main] INFO  c.a.bumper.utils.LoggingListener - Update operation initiated.
+2025-05-14 15:19:44 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: id updated 
+2025-05-14 15:19:44 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 6 ms

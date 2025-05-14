@@ -383,6 +383,11 @@ public class MongoDBQueryHandler implements DBQueryHandler {
         }
 
         @Override
+        public DBQueryBuilder query(String query) {
+            return this;
+        }
+
+        @Override
         public DBQueryHandler buildHandler() {
             return new MongoDBQueryHandler(this);
         }

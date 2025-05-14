@@ -3,6 +3,7 @@ package com.amosnyirenda.bumper.handlers;
 import com.amosnyirenda.bumper.core.DBConnector;
 import com.amosnyirenda.bumper.core.DBQueryBuilder;
 import com.amosnyirenda.bumper.core.DBQueryHandler;
+import com.amosnyirenda.bumper.core.DBType;
 import com.amosnyirenda.bumper.events.EventManager;
 import com.amosnyirenda.bumper.events.EventType;
 import java.sql.*;
@@ -37,6 +38,68 @@ public class JdbcQueryHandler implements DBQueryHandler {
     public DBQueryHandler withEventManager(EventManager eventManager) {
         this.eventManager = eventManager;
         return this;
+    }
+
+    private String getInsertQuery(DBType dbType, List<String> columns) {
+        String columnNames = String.join(", ", columns);
+        String placeholders = columns.stream()
+                .map(col -> "?")
+                .collect(Collectors.joining(", "));
+
+        switch (dbType) {
+            case MYSQL, POSTGRESQL, SQLITE, SQLSERVER-> {
+                return "INSERT INTO " + tableName + " (" + columnNames + ") VALUES (" + placeholders + ")";
+            }
+            default -> throw new IllegalArgumentException("Unsupported DB type: " + dbType);
+
+        }
+
+    }
+    private String getUpdateQuery(DBType dbType, Map<String, Object> updates, String targetColumn) {
+        switch (dbType) {
+            case MYSQL, ORACLE, POSTGRESQL, SQLITE, SQLSERVER-> {
+                String setClause = updates.keySet().stream()
+                        .map(col -> col + " = ?")
+                        .collect(Collectors.joining(", "));
+                return "UPDATE " + tableName + " SET " + setClause + " WHERE " + targetColumn + " = ?";
+            }
+
+            default -> throw new IllegalArgumentException("Unsupported DB type: " + dbType);
+        }
+    }
+    private String getDeleteQuery(DBType dbType, String targetColumn) {
+        switch (dbType) {
+            case MYSQL, ORACLE, POSTGRESQL, SQLSERVER, SQLITE-> {
+                return "DELETE FROM " + tableName + String.format(" WHERE %s = ?", targetColumn);
+            }
+
+            default -> throw new IllegalArgumentException("Unsupported DB type: " + dbType);
+        }
+    }
+
+    private String getCreateQuery(DBType dbType) {
+        switch (dbType) {
+            case MYSQL-> {
+                return "INSERT INTO " + tableName + " (" + database;
+            }
+            case ORACLE -> {
+                return "INSERT INTO " + tableName + " (" + database + ") VALUES (?)";
+            }
+            case POSTGRESQL -> {
+                return "INSERT INTO " + tableName + " (" + database + ") VALUES (?, ?)";
+            }
+
+            case SQLSERVER -> {
+                return "INSERT INTO " + tableName + " (" + database + ") VALUES (?, ?, #)";
+            }
+
+            case SQLITE -> {
+                return "INSERT INTO " + tableName + " (" + database + ") VALUES (?, ?, ?)";
+            }
+            default -> {
+                return null;
+            }
+        }
     }
 
     @Override
@@ -180,9 +243,7 @@ public class JdbcQueryHandler implements DBQueryHandler {
         if (!ifNotExist) {
             return insert(columns);
         }
-        String sql = "INSERT IGNORE INTO " + tableName + " (" +
-                String.join(", ", columns) + ") VALUES (" +
-                columns.stream().map(c -> "?").collect(Collectors.joining(", ")) + ")";
+        String sql = getInsertQuery(DBType.MYSQL, columns);
 
         try (PreparedStatement stmt = ((Connection)connector.connect()).prepareStatement(sql)) {
             for (int i = 0; i < values.size(); i++) {
@@ -204,10 +265,14 @@ public class JdbcQueryHandler implements DBQueryHandler {
 
     @Override
     public boolean delete(String targetColumn, Object targetValue) {
-        String sql = "DELETE FROM " + tableName + String.format(" WHERE %s = ?", targetColumn);
+        String sql = getDeleteQuery(DBType.MYSQL, targetColumn);
         try (PreparedStatement stmt = ((Connection)connector.connect()).prepareStatement(sql)) {
             stmt.setObject(1, targetValue);
+            long start = System.nanoTime();
             int affected = stmt.executeUpdate();
+            long end = System.nanoTime();
+            long executionTimeMillis = (end - start) / 1_000_000;
+            dispatch(EventType.DELETE, "DELETE FROM " + tableName + " WHERE " + targetColumn + " = " + affected, "Took: " + executionTimeMillis + " ms");
             return affected > 0;
         } catch (SQLException e) {
             dispatch(EventType.QUERY_ERROR, "Delete failed: " + e.getMessage());
@@ -220,18 +285,19 @@ public class JdbcQueryHandler implements DBQueryHandler {
     public boolean update(String targetColumn, Object targetValue, Map<String, Object> updates) {
         if (updates == null || updates.isEmpty()) return false;
 
-        StringBuilder sql = new StringBuilder("UPDATE " + tableName + " SET ");
-        sql.append(updates.keySet().stream().map(k -> k + " = ?").collect(Collectors.joining(", ")));
-        sql.append(String.format(" WHERE %s = ?", targetColumn));
+        String sql = getUpdateQuery(DBType.MYSQL, updates, targetColumn);
 
-
-        try (PreparedStatement stmt = ((Connection)connector.connect()).prepareStatement(sql.toString())) {
+        try (PreparedStatement stmt = ((Connection)connector.connect()).prepareStatement(sql)) {
             int i = 1;
             for (Object val : updates.values()) {
                 stmt.setObject(i++, val);
             }
             stmt.setObject(i, targetValue);
+            long start = System.nanoTime();
             int updated = stmt.executeUpdate();
+            long end = System.nanoTime();
+            long executionTimeMillis = (end - start) / 1_000_000;
+            dispatch(EventType.UPDATE, targetColumn + " updated " , "Took: " + executionTimeMillis + " ms");
             return updated > 0;
         } catch (SQLException e) {
             dispatch(EventType.QUERY_ERROR, "Update failed: " + e.getMessage());
@@ -300,6 +366,11 @@ public class JdbcQueryHandler implements DBQueryHandler {
         public DBQueryBuilder use(String param) {
             this.database = param;
             return this;
+        }
+
+        @Override
+        public DBQueryBuilder query(String query) {
+            return append(query);
         }
 
 

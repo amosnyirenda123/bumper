@@ -140,6 +140,11 @@ public class RedisQueryHandler implements DBQueryHandler {
         }
 
         @Override
+        public DBQueryBuilder query(String query) {
+            return this;
+        }
+
+        @Override
         public DBQueryHandler buildHandler() {
             return new RedisQueryHandler(this);
         }
