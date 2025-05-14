@@ -13,7 +13,7 @@ public class Main {
         DBConnectionManager connectionManager = new DBConnectionManager.ConnectionBuilder()
                 .withUrl("jdbc:postgresql://localhost:5432/postgres")
                 .withUsername("postgres")
-                .withPassword("cmdvscod511824")
+                .withPassword("")
                 .withDb(DBType.POSTGRESQL)
                 .buildConnection();
 

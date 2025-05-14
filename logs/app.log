@@ -164,3 +164,129 @@
 2025-05-14 15:19:44 [main] INFO  c.a.bumper.utils.LoggingListener - Update operation initiated.
 2025-05-14 15:19:44 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: id updated 
 2025-05-14 15:19:44 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 6 ms
+2025-05-14 16:20:59 [main] INFO  c.a.bumper.utils.LoggingListener - Database connection successfully established.
+2025-05-14 16:20:59 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: jdbc:sqlite:C:/Users/pc/Documents/testdb.db
+2025-05-14 16:20:59 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 155ms
+2025-05-14 16:20:59 [main] INFO  c.a.bumper.utils.LoggingListener - Insert operation initiated.
+2025-05-14 16:20:59 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Query: INSERT INTO books (author, title) VALUES (?, ?)
+2025-05-14 16:20:59 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 7 ms
+2025-05-14 16:20:59 [main] INFO  c.a.bumper.utils.LoggingListener - Database connection successfully established.
+2025-05-14 16:20:59 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: jdbc:sqlite:C:/Users/pc/Documents/testdb.db
+2025-05-14 16:20:59 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 0ms
+2025-05-14 16:20:59 [main] DEBUG c.a.bumper.utils.LoggingListener - Database rows fetched.
+2025-05-14 16:20:59 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Query:  select * from books
+2025-05-14 16:20:59 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 1 ms, Rows fetched: 4 rows
+2025-05-14 16:29:58 [main] INFO  c.a.bumper.utils.LoggingListener - Database connection successfully established.
+2025-05-14 16:29:58 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: jdbc:sqlite:C:/Users/pc/Documents/mylibrary.db
+2025-05-14 16:29:58 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 99ms
+2025-05-14 16:29:58 [main] INFO  c.a.bumper.utils.LoggingListener - Database connection successfully established.
+2025-05-14 16:29:58 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: jdbc:sqlite:C:/Users/pc/Documents/mylibrary.db
+2025-05-14 16:29:58 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 0ms
+2025-05-14 16:29:58 [main] INFO  c.a.bumper.utils.LoggingListener - Database connection successfully established.
+2025-05-14 16:29:58 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: jdbc:sqlite:C:/Users/pc/Documents/mylibrary.db
+2025-05-14 16:29:58 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 0ms
+2025-05-14 16:29:58 [main] INFO  c.a.bumper.utils.LoggingListener - Insert operation initiated.
+2025-05-14 16:29:58 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Query: INSERT INTO books (year, author, title) VALUES (?, ?, ?)
+2025-05-14 16:29:58 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 6 ms
+2025-05-14 16:29:58 [main] INFO  c.a.bumper.utils.LoggingListener - Database connection successfully established.
+2025-05-14 16:29:58 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: jdbc:sqlite:C:/Users/pc/Documents/mylibrary.db
+2025-05-14 16:29:58 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 1ms
+2025-05-14 16:29:58 [main] DEBUG c.a.bumper.utils.LoggingListener - Database rows fetched.
+2025-05-14 16:29:58 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Query:  select * from books
+2025-05-14 16:29:58 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 1 ms, Rows fetched: 1 rows
+2025-05-14 16:41:04 [main] INFO  c.a.bumper.utils.LoggingListener - Database connection successfully established.
+2025-05-14 16:41:04 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: jdbc:sqlite:C:/Users/pc/Documents/mylibrary.db
+2025-05-14 16:41:04 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 135ms
+2025-05-14 16:41:04 [main] INFO  c.a.bumper.utils.LoggingListener - Database connection successfully established.
+2025-05-14 16:41:04 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: jdbc:sqlite:C:/Users/pc/Documents/mylibrary.db
+2025-05-14 16:41:04 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 1ms
+2025-05-14 16:41:04 [main] INFO  c.a.bumper.utils.LoggingListener - Database connection successfully established.
+2025-05-14 16:41:04 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: jdbc:sqlite:C:/Users/pc/Documents/mylibrary.db
+2025-05-14 16:41:04 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 0ms
+2025-05-14 16:41:04 [main] INFO  c.a.bumper.utils.LoggingListener - Insert operation initiated.
+2025-05-14 16:41:04 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Query: INSERT INTO books (year, author, title) VALUES (?, ?, ?)
+2025-05-14 16:41:04 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 4 ms
+2025-05-14 16:41:04 [main] INFO  c.a.bumper.utils.LoggingListener - Database connection successfully established.
+2025-05-14 16:41:04 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: jdbc:sqlite:C:/Users/pc/Documents/mylibrary.db
+2025-05-14 16:41:04 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 0ms
+2025-05-14 16:41:04 [main] DEBUG c.a.bumper.utils.LoggingListener - Database rows fetched.
+2025-05-14 16:41:04 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Query:  select * from books
+2025-05-14 16:41:04 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 0 ms, Rows fetched: 4 rows
+2025-05-14 16:41:04 [main] INFO  c.a.bumper.utils.LoggingListener - Database connection successfully established.
+2025-05-14 16:41:04 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: jdbc:sqlite:C:/Users/pc/Documents/mylibrary.db
+2025-05-14 16:41:04 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 1ms
+2025-05-14 16:42:20 [main] INFO  c.a.bumper.utils.LoggingListener - Database connection successfully established.
+2025-05-14 16:42:20 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: jdbc:sqlite:C:/Users/pc/Documents/mylibrary.db
+2025-05-14 16:42:20 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 104ms
+2025-05-14 16:42:20 [main] INFO  c.a.bumper.utils.LoggingListener - Database connection successfully established.
+2025-05-14 16:42:20 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: jdbc:sqlite:C:/Users/pc/Documents/mylibrary.db
+2025-05-14 16:42:20 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 1ms
+2025-05-14 16:42:20 [main] INFO  c.a.bumper.utils.LoggingListener - Database connection successfully established.
+2025-05-14 16:42:20 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: jdbc:sqlite:C:/Users/pc/Documents/mylibrary.db
+2025-05-14 16:42:20 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 2ms
+2025-05-14 16:42:20 [main] INFO  c.a.bumper.utils.LoggingListener - Insert operation initiated.
+2025-05-14 16:42:20 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Query: INSERT INTO books (year, author, title) VALUES (?, ?, ?)
+2025-05-14 16:42:20 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 4 ms
+2025-05-14 16:42:20 [main] INFO  c.a.bumper.utils.LoggingListener - Database connection successfully established.
+2025-05-14 16:42:20 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: jdbc:sqlite:C:/Users/pc/Documents/mylibrary.db
+2025-05-14 16:42:20 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 1ms
+2025-05-14 16:42:20 [main] DEBUG c.a.bumper.utils.LoggingListener - Database rows fetched.
+2025-05-14 16:42:20 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Query:  select * from books
+2025-05-14 16:42:20 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 0 ms, Rows fetched: 8 rows
+2025-05-14 16:42:20 [main] INFO  c.a.bumper.utils.LoggingListener - Database connection successfully established.
+2025-05-14 16:42:20 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: jdbc:sqlite:C:/Users/pc/Documents/mylibrary.db
+2025-05-14 16:42:20 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 0ms
+2025-05-14 16:46:03 [main] INFO  c.a.bumper.utils.LoggingListener - Database connection successfully established.
+2025-05-14 16:46:03 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: jdbc:sqlite:C:/Users/pc/Documents/mylibrary.db
+2025-05-14 16:46:03 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 111ms
+2025-05-14 16:46:03 [main] INFO  c.a.bumper.utils.LoggingListener - Database connection successfully established.
+2025-05-14 16:46:03 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: jdbc:sqlite:C:/Users/pc/Documents/mylibrary.db
+2025-05-14 16:46:03 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 1ms
+2025-05-14 16:46:03 [main] INFO  c.a.bumper.utils.LoggingListener - Database connection successfully established.
+2025-05-14 16:46:03 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: jdbc:sqlite:C:/Users/pc/Documents/mylibrary.db
+2025-05-14 16:46:03 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 0ms
+2025-05-14 16:46:03 [main] INFO  c.a.bumper.utils.LoggingListener - Insert operation initiated.
+2025-05-14 16:46:03 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Query: INSERT INTO books (year, author, title) VALUES (?, ?, ?)
+2025-05-14 16:46:03 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 5 ms
+2025-05-14 16:46:03 [main] INFO  c.a.bumper.utils.LoggingListener - Database connection successfully established.
+2025-05-14 16:46:03 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: jdbc:sqlite:C:/Users/pc/Documents/mylibrary.db
+2025-05-14 16:46:03 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 0ms
+2025-05-14 16:46:03 [main] DEBUG c.a.bumper.utils.LoggingListener - Database rows fetched.
+2025-05-14 16:46:03 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Query:  select * from books
+2025-05-14 16:46:03 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 0 ms, Rows fetched: 12 rows
+2025-05-14 16:46:03 [main] INFO  c.a.bumper.utils.LoggingListener - Database connection successfully established.
+2025-05-14 16:46:03 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: jdbc:sqlite:C:/Users/pc/Documents/mylibrary.db
+2025-05-14 16:46:03 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 1ms
+2025-05-14 16:47:49 [main] INFO  c.a.bumper.utils.LoggingListener - Database connection successfully established.
+2025-05-14 16:47:49 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: jdbc:sqlite:C:/Users/pc/Documents/mylibrary.db
+2025-05-14 16:47:49 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 96ms
+2025-05-14 16:47:49 [main] INFO  c.a.bumper.utils.LoggingListener - Database connection successfully established.
+2025-05-14 16:47:49 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: jdbc:sqlite:C:/Users/pc/Documents/mylibrary.db
+2025-05-14 16:47:49 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 0ms
+2025-05-14 16:47:49 [main] INFO  c.a.bumper.utils.LoggingListener - Delete operation initiated.
+2025-05-14 16:47:49 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: DELETE FROM books WHERE id = 1
+2025-05-14 16:47:49 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 4 ms
+2025-05-14 16:47:49 [main] INFO  c.a.bumper.utils.LoggingListener - Database connection successfully established.
+2025-05-14 16:47:49 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: jdbc:sqlite:C:/Users/pc/Documents/mylibrary.db
+2025-05-14 16:47:49 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 1ms
+2025-05-14 16:47:49 [main] INFO  c.a.bumper.utils.LoggingListener - Database connection successfully established.
+2025-05-14 16:47:49 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: jdbc:sqlite:C:/Users/pc/Documents/mylibrary.db
+2025-05-14 16:47:49 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 1ms
+2025-05-14 16:47:49 [main] INFO  c.a.bumper.utils.LoggingListener - Insert operation initiated.
+2025-05-14 16:47:49 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Query: INSERT INTO books (year, author, title) VALUES (?, ?, ?)
+2025-05-14 16:47:49 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 5 ms
+2025-05-14 16:47:49 [main] INFO  c.a.bumper.utils.LoggingListener - Database connection successfully established.
+2025-05-14 16:47:49 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: jdbc:sqlite:C:/Users/pc/Documents/mylibrary.db
+2025-05-14 16:47:49 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 1ms
+2025-05-14 16:47:49 [main] DEBUG c.a.bumper.utils.LoggingListener - Database rows fetched.
+2025-05-14 16:47:49 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Query:  select * from books
+2025-05-14 16:47:49 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 0 ms, Rows fetched: 15 rows
+2025-05-14 16:47:49 [main] INFO  c.a.bumper.utils.LoggingListener - Database connection successfully established.
+2025-05-14 16:47:49 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: jdbc:sqlite:C:/Users/pc/Documents/mylibrary.db
+2025-05-14 16:47:49 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 0ms
+2025-05-14 16:47:49 [main] INFO  c.a.bumper.utils.LoggingListener - Database connection successfully established.
+2025-05-14 16:47:49 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: jdbc:sqlite:C:/Users/pc/Documents/mylibrary.db
+2025-05-14 16:47:49 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 1ms
+2025-05-14 16:47:49 [main] INFO  c.a.bumper.utils.LoggingListener - Update operation initiated.
+2025-05-14 16:47:49 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: id updated 
+2025-05-14 16:47:49 [main] DEBUG c.a.bumper.utils.LoggingListener - Payload: Took: 6 ms
