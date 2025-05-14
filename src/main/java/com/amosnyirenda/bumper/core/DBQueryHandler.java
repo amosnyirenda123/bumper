@@ -12,10 +12,11 @@ public interface DBQueryHandler {
     List<Map<String, Object>> getEntries();
     List<Map<String, Object>> getEntries(int limit);
     boolean insert(Object ...documents);
-    boolean insert(List<String> columns, List<Object> values);
+    boolean insert(Map<String, Object> data);
     boolean insert(List<String> columns, List<Object> values, boolean ifNotExist);
     boolean delete(String id);
+    boolean delete(String targetColumn, Object targetValue);
+    boolean update(String targetColumn, Object targetValue, Map<String, Object> updates);
     boolean update(String id, Map<String, Object> updates);
-    boolean update(String tableName, String newValue);
     List<String> getFieldNames();
 }

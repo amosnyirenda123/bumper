@@ -1,10 +1,12 @@
 package com.amosnyirenda.bumper.core;
 import com.amosnyirenda.bumper.drivers.JdbcConnector;
 import com.amosnyirenda.bumper.drivers.MongoDBConnector;
+import com.amosnyirenda.bumper.drivers.RedisConnector;
 import com.amosnyirenda.bumper.events.EventManager;
 import com.amosnyirenda.bumper.events.EventType;
 import com.amosnyirenda.bumper.factories.JdbcQueryHandlerFactory;
 import com.amosnyirenda.bumper.factories.MongoDBQueryHandlerFactory;
+import com.amosnyirenda.bumper.factories.RedisQueryHandlerFactory;
 import com.amosnyirenda.bumper.utils.LoggingListener;
 import lombok.Getter;
 import java.util.HashMap;
@@ -61,6 +63,7 @@ public class DBConnectionManager {
                     connectorSuppliers.put(dbType,request -> new JdbcConnector( request.getConfig(), request.getEventManager()));
             case MONGO_DB ->
                     connectorSuppliers.put(dbType,request -> new MongoDBConnector( request.getConfig(), request.getEventManager()));
+            case REDIS -> connectorSuppliers.put(dbType,request -> new RedisConnector(request.getConfig(), request.getEventManager()));
             default -> throw new UnsupportedOperationException("No Database connector registered for: " + dbType);
         }
     }
@@ -71,6 +74,7 @@ public class DBConnectionManager {
                     handlerFactories.put(dbType, new JdbcQueryHandlerFactory());
             case MONGO_DB ->
                     handlerFactories.put(dbType, new MongoDBQueryHandlerFactory());
+            case REDIS -> handlerFactories.put(dbType, new RedisQueryHandlerFactory());
             default -> throw new UnsupportedOperationException("No Database factory registered for: " + dbType);
         }
     }
@@ -150,6 +154,9 @@ public class DBConnectionManager {
                     break;
                 case MONGO_DB:
                     this.className = "org.mongodb.morph.MorphDriver";
+                    break;
+                case REDIS:
+                    this.className = "redis.clients.jedis.Jedis";
                     break;
                 default:
                     throw new UnsupportedOperationException("Unsupported DB type: " + dbType);

@@ -5,20 +5,25 @@ import com.amosnyirenda.bumper.core.DBQueryBuilder;
 import com.amosnyirenda.bumper.core.DBQueryHandler;
 import com.amosnyirenda.bumper.events.EventManager;
 import com.amosnyirenda.bumper.events.EventType;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class JdbcQueryHandler implements DBQueryHandler {
     private final String query;
+    private final String tableName;
+    private final String database;
     private DBConnector connector;
     private EventManager eventManager;
 
     private JdbcQueryHandler(QueryBuilder builder) {
+
         this.query = builder.query.toString();
+        this.tableName = builder.tableName;
+        this.database = builder.database;
     }
 
     @Override
@@ -26,6 +31,7 @@ public class JdbcQueryHandler implements DBQueryHandler {
         this.connector = connector;
         return this;
     }
+
 
     @Override
     public DBQueryHandler withEventManager(EventManager eventManager) {
@@ -139,28 +145,103 @@ public class JdbcQueryHandler implements DBQueryHandler {
         return false;
     }
 
+
     @Override
-    public boolean insert(List<String> columns, List<Object> values) {
-        return false;
+    public boolean insert(Map<String, Object> data) {
+        if (data == null || data.isEmpty()) return false;
+
+        String sql = "INSERT INTO " + tableName + " (" +
+                String.join(", ", data.keySet()) +
+                ") VALUES (" +
+                data.keySet().stream().map(k -> "?").collect(Collectors.joining(", ")) +
+                ")";
+
+        try (PreparedStatement stmt = ((Connection) connector.connect()).prepareStatement(sql)) {
+            int index = 1;
+            for (Object value : data.values()) {
+                stmt.setObject(index++, value);
+            }
+            long start = System.nanoTime();
+            stmt.executeUpdate();
+            long end = System.nanoTime();
+            long executionTimeMillis = (end - start) / 1_000_000;
+            dispatch(EventType.INSERT, "Query: " + sql, "Took: " + executionTimeMillis + " ms");
+            return true;
+        } catch (SQLException e) {
+            dispatch(EventType.QUERY_ERROR, "Insert failed: " + e.getMessage());
+            return false;
+        }
     }
+
+
 
     @Override
     public boolean insert(List<String> columns, List<Object> values, boolean ifNotExist) {
+        if (!ifNotExist) {
+            return insert(columns);
+        }
+        String sql = "INSERT IGNORE INTO " + tableName + " (" +
+                String.join(", ", columns) + ") VALUES (" +
+                columns.stream().map(c -> "?").collect(Collectors.joining(", ")) + ")";
+
+        try (PreparedStatement stmt = ((Connection)connector.connect()).prepareStatement(sql)) {
+            for (int i = 0; i < values.size(); i++) {
+                stmt.setObject(i + 1, values.get(i));
+            }
+            stmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            dispatch(EventType.QUERY_ERROR, "Insert-if-not-exist failed: " + e.getMessage());
+            return false;
+        }
+    }
+
+
+    @Override
+    public boolean delete(String id) {
         return false;
     }
 
     @Override
-    public boolean  delete(String id) {
-        return false;
+    public boolean delete(String targetColumn, Object targetValue) {
+        String sql = "DELETE FROM " + tableName + String.format(" WHERE %s = ?", targetColumn);
+        try (PreparedStatement stmt = ((Connection)connector.connect()).prepareStatement(sql)) {
+            stmt.setObject(1, targetValue);
+            int affected = stmt.executeUpdate();
+            return affected > 0;
+        } catch (SQLException e) {
+            dispatch(EventType.QUERY_ERROR, "Delete failed: " + e.getMessage());
+            return false;
+        }
     }
+
+
+    @Override
+    public boolean update(String targetColumn, Object targetValue, Map<String, Object> updates) {
+        if (updates == null || updates.isEmpty()) return false;
+
+        StringBuilder sql = new StringBuilder("UPDATE " + tableName + " SET ");
+        sql.append(updates.keySet().stream().map(k -> k + " = ?").collect(Collectors.joining(", ")));
+        sql.append(String.format(" WHERE %s = ?", targetColumn));
+
+
+        try (PreparedStatement stmt = ((Connection)connector.connect()).prepareStatement(sql.toString())) {
+            int i = 1;
+            for (Object val : updates.values()) {
+                stmt.setObject(i++, val);
+            }
+            stmt.setObject(i, targetValue);
+            int updated = stmt.executeUpdate();
+            return updated > 0;
+        } catch (SQLException e) {
+            dispatch(EventType.QUERY_ERROR, "Update failed: " + e.getMessage());
+            return false;
+        }
+    }
+
 
     @Override
     public boolean update(String id, Map<String, Object> updates) {
-        return false;
-    }
-
-    @Override
-    public boolean update(String tableName, String newValue) {
         return false;
     }
 
@@ -194,6 +275,8 @@ public class JdbcQueryHandler implements DBQueryHandler {
 
     public static class QueryBuilder implements DBQueryBuilder {
         private final StringBuilder query = new StringBuilder();
+        private String tableName;
+        private String database;
 
         private QueryBuilder append(String sqlPart) {
             query.append(" ").append(sqlPart);
@@ -203,17 +286,19 @@ public class JdbcQueryHandler implements DBQueryHandler {
 
         @Override
         public QueryBuilder target(String source) {
-            return append(source);
+            tableName = source;
+            return this;
         }
 
         @Override
         public QueryBuilder target(String source, Object ...params) {
-            return append(String.format(source, params));
+            tableName =  String.format(source, params);
+            return this;
         }
 
         @Override
         public DBQueryBuilder use(String param) {
-            //TODO: define method body later
+            this.database = param;
             return this;
         }
 

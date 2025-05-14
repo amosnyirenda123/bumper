@@ -9,6 +9,26 @@ import lombok.RequiredArgsConstructor;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
+
+/**
+ * Provides JDBC-based database connectivity for relational databases.
+ * <p>
+ * This class implements the {@link DBConnector} interface and allows
+ * establishing and closing connections using JDBC for supported databases
+ * such as MySQL, PostgreSQL, SQLite, Oracle, and SQL Server.
+ * </p>
+ *
+ * Example usage:
+ * <pre>
+ *     JdbcConnector connector = new JdbcConnector("jdbc:mysql://localhost:3306/db", "user", "pass");
+ *     Connection conn = connector.connect();
+ * </pre>
+ *
+ * Supported database URLs vary by vendor.
+ *
+ * @author Amos Nyirenda
+ */
+
 @RequiredArgsConstructor
 public class JdbcConnector implements DBConnector {
     private final DBConnectionConfig config;
@@ -32,12 +52,31 @@ public class JdbcConnector implements DBConnector {
         }
     }
 
+    /**
+     * Dispatches an event with optional payload to registered listeners.
+     * <p>
+     * This method is typically used internally to signal connection errors
+     * or other notable occurrences during database operations.
+     * </p>
+     *
+     * @param event the type of event being dispatched
+     * @param payload optional data associated with the event
+     */
+
     private void dispatch(EventType event, Object... payload) {
         if(eventManager != null){
             eventManager.notify(event, payload);
         }
     }
 
+
+    /**
+     * Closes the connection to the MongoDB server if it is open.
+     * <p>
+     * This method should be called to release MongoDB resources when they are
+     * no longer needed.
+     * </p>
+     */
     @Override
     public void close() {
         try {

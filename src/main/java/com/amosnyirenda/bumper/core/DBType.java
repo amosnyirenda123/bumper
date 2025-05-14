@@ -6,5 +6,6 @@ public enum DBType {
     SQLITE,
     ORACLE,
     SQLSERVER,
+    REDIS,
     MONGO_DB
 }
